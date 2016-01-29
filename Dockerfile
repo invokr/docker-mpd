@@ -4,6 +4,7 @@ MAINTAINER Robin Dietrich <me@invokr.org>
 ENV DEBIAN_FRONTEND=noninteractive
 ENV MPD_DEFAULT_PERM="read,add,control,admin"
 ENV MPD_ADMIN_PASS="changeme"
+ENV MPD_STREAM_PORT=8000
 
 # Upgrade base system
 RUN apt-get update -y && apt-get upgrade -y && apt-get install mpd wget -y
