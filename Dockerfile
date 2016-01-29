@@ -7,7 +7,12 @@ ENV MPD_ADMIN_PASS="changeme"
 ENV MPD_STREAM_PORT=8000
 
 # Upgrade base system
-RUN apt-get update -y && apt-get upgrade -y && apt-get install mpd wget -y
+RUN apt-get update -y && apt-get upgrade -y && apt-get install wget -y
+
+# Install mpd. We need the backports version because the default debian version crashes on certain characters when updating the DB
+# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=768094
+RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list \
+ && apt-get update && apt-get -y -t jessie-backports install mpd
 
 # Install dockerize and dumb init
 RUN wget https://github.com/jwilder/dockerize/releases/download/v0.2.0/dockerize-linux-amd64-v0.2.0.tar.gz \
